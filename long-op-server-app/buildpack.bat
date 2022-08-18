@@ -1,0 +1,1 @@
+pack build srvapp --builder paketobuildpacks/builder:tiny
