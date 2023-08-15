@@ -6,9 +6,11 @@ import java.util.Arrays;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.client.reactive.JettyResourceFactory;
 import org.springframework.r2dbc.connection.init.ConnectionFactoryInitializer;
 import org.springframework.r2dbc.connection.init.ResourceDatabasePopulator;
 
@@ -34,6 +36,14 @@ public class SlTestServerApplication {
 		//initializer.setDatabasePopulator(new ResourceDatabasePopulator(new ClassPathResource("schema.sql")));
 		
 		return initializer;
+	}
+	
+	@Bean
+	@ConditionalOnMissingBean
+	JettyResourceFactory jettyServerResourceFactory() {
+		var iks = new JettyResourceFactory();
+		iks.setThreadPrefix("bobeczek");
+		return iks;
 	}
 	
 
