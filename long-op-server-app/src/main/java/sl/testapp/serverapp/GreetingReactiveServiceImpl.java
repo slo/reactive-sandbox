@@ -24,7 +24,7 @@ public class GreetingReactiveServiceImpl implements GreetingReactiveService {
 		//2
 //		return Mono.fromCallable(greetingService::getGreeting);
 		//3
-		return Mono.fromCallable(greetingService::getGreeting).subscribeOn(Schedulers.boundedElastic());
+		return Mono.fromCallable(greetingService::getGreeting);//.subscribeOn(Schedulers.boundedElastic());
 		
 	}
 

@@ -36,6 +36,8 @@ public class SlTestServerApplication {
 		return initializer;
 	}
 	
+
+	
 	
 	@Bean
 	public CommandLineRunner demo(CustomerRepository repository) {
