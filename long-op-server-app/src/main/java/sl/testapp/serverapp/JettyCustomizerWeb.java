@@ -5,8 +5,10 @@ import org.springframework.boot.web.embedded.jetty.JettyServletWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.stereotype.Component;
 
-@Component
-public class JettyCustomizer implements WebServerFactoryCustomizer<JettyServletWebServerFactory>{
+//this one is used for configuring Jetty factory in -web starter
+//overrides what is configured in application.properties
+//@Component
+public class JettyCustomizerWeb implements WebServerFactoryCustomizer<JettyServletWebServerFactory>{
 
 	@Override
 	public void customize(JettyServletWebServerFactory factory) {
