@@ -3,6 +3,7 @@ package sl.testapp.serverapp;
 import java.time.Duration;
 import java.util.Arrays;
 
+import org.eclipse.jetty.util.thread.QueuedThreadPool;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -43,6 +44,12 @@ public class SlTestServerApplication {
 	JettyResourceFactory jettyServerResourceFactory() {
 		var iks = new JettyResourceFactory();
 		iks.setThreadPrefix("bobeczek");
+		//probka 1000 requestow / ilosc watkow daje ilosc iteracji wszystkich watkow.
+		// kazda iteracja to 10 s(wartosc sleep).
+		//to daje: reqs/maxThreads*10s < timeout dla pojedynczego requestu (mniej wiecej) 
+		QueuedThreadPool threadPool = new QueuedThreadPool(100, 8);
+		threadPool.setName("bobeczekX");
+		iks.setExecutor(threadPool);
 		return iks;
 	}
 	
