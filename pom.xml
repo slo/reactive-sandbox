@@ -24,6 +24,7 @@
 	<modules>
 		<module>long-op-server-app</module>
 		<module>service-app</module>
+		<module>recurrency-app</module>
 	</modules>
 	<build>
 		<plugins>
