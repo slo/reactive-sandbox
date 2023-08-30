@@ -8,7 +8,7 @@
     </encoder>
   </appender>
   
-  <logger name="sl.testapp.serverapp" level="DEBUG"/>
+  <logger name="sl.testapp.recurrency" level="DEBUG"/>
   <logger name="org.eclipse.jetty.util.thread.QueuedThreadPool" level="DEBUG"/>
 
   <root level="INFO">
