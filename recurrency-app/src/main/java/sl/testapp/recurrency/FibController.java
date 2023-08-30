@@ -19,6 +19,7 @@ public class FibController {
 	public String fibn(@PathVariable int n) {
 		log.debug("Received request for n=[" + n + "]");
 		if(n<2) {
+			log.debug("Returning response for n=[" + n + "]");
 			return String.valueOf(n);
 		} else {
 			Mono<Integer> n_1 = WebClient.create("http://localhost:8081").get().uri("/fib/{n}", n-1)
@@ -33,8 +34,8 @@ public class FibController {
 					.flatMap(resp -> resp.bodyToMono(String.class))
 					.map(Integer::parseInt);
 			
-			Integer a = n_1.block(Duration.ofMinutes(1));
-			Integer b = n_2.block(Duration.ofMinutes(1));
+			Integer a = n_1.block(Duration.ofSeconds(60));
+			Integer b = n_2.block(Duration.ofSeconds(60));
 			
 			log.debug("Returning response for n=[" + n + "]");
 			return String.valueOf(a+b); 
