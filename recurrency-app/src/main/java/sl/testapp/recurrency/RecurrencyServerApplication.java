@@ -18,14 +18,14 @@ public class RecurrencyServerApplication {
 	public static void main(String[] args) {
 		var ctx = SpringApplication.run(RecurrencyServerApplication.class, args);
 
-		Mono<Integer> result = WebClient.create("http://localhost:8081").get().uri("/fib/{n}", 10)
+		Mono<Integer> result = WebClient.create("http://localhost:8081").get().uri("/fib/{n}", 30)
 				.accept(MediaType.TEXT_HTML).exchange().flatMap(resp -> resp.bodyToMono(String.class))
 				.map(Integer::parseInt);
 
 		try {
 			System.out.println("STARTSTARTSTARTSTARTSTARTSTART");
 			log.debug("STARTSTARTSTARTSTARTSTARTSTART");
-			System.out.println(result.block(Duration.ofSeconds(60)));
+			System.out.println(result.block(Duration.ofSeconds(6000)));
 			System.out.println("STARTSTARTSTARTSTARTSTARTSTART");
 		} catch(Exception e) {
 			log.error("STARTSTARTSTARTSTARTSTARTSTART");
