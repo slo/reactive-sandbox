@@ -2,6 +2,7 @@ package sl.testapp.recurrency;
 
 import java.time.Duration;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,17 +23,9 @@ public class FibController {
 			log.debug("Returning response for n=[" + n + "]");
 			return Mono.just(String.valueOf(n));
 		} else {
-			Mono<Integer> n_1 = WebClient.create("http://localhost:8081").get().uri("/fib/{n}", n-1)
-					.accept(MediaType.TEXT_HTML)
-					.exchange()
-					.flatMap(resp -> resp.bodyToMono(String.class))
-					.map(Integer::parseInt);
+			Mono<Integer> n_1 = WebClientHelper.prepareWebclient(n-1);
 			
-			Mono<Integer> n_2 = WebClient.create("http://localhost:8081").get().uri("/fib/{n}", n-2)
-					.accept(MediaType.TEXT_HTML)
-					.exchange()
-					.flatMap(resp -> resp.bodyToMono(String.class))
-					.map(Integer::parseInt);
+			Mono<Integer> n_2 = WebClientHelper.prepareWebclient(n-2);
 			
 			log.debug("Returning 'mono' for n=[" + n + "]");
 			return n_1.flatMap(a -> n_2.map(b -> a+b)).map(String::valueOf);

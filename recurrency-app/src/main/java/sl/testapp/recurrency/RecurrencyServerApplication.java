@@ -5,6 +5,7 @@ import java.time.Duration;
 import org.springframework.boot.ExitCodeGenerator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -18,9 +19,7 @@ public class RecurrencyServerApplication {
 	public static void main(String[] args) {
 		var ctx = SpringApplication.run(RecurrencyServerApplication.class, args);
 
-		Mono<Integer> result = WebClient.create("http://localhost:8081").get().uri("/fib/{n}", 10)
-				.accept(MediaType.TEXT_HTML).exchange().flatMap(resp -> resp.bodyToMono(String.class))
-				.map(Integer::parseInt);
+		Mono<Integer> result = WebClientHelper.prepareWebclient(10);
 
 		try {
 			System.out.println("STARTSTARTSTARTSTARTSTARTSTART");
