@@ -47,8 +47,8 @@ public class SlTestServerApplication {
 		//probka 1000 requestow / ilosc watkow daje ilosc iteracji wszystkich watkow.
 		// kazda iteracja to 10 s(wartosc sleep).
 		//to daje: reqs/maxThreads*10s < timeout dla pojedynczego requestu (mniej wiecej) 
-		QueuedThreadPool threadPool = new QueuedThreadPool(100, 8);
-		threadPool.setName("bobeczekX");
+		QueuedThreadPool threadPool = new QueuedThreadPool(4, 1);
+		threadPool.setName("webfluxowe");
 		iks.setExecutor(threadPool);
 		return iks;
 	}
