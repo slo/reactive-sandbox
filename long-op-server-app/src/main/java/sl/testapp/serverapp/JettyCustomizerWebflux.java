@@ -1,5 +1,6 @@
 package sl.testapp.serverapp;
 
+import org.eclipse.jetty.server.AbstractConnector;
 import org.eclipse.jetty.util.thread.QueuedThreadPool;
 import org.springframework.boot.web.embedded.jetty.JettyReactiveWebServerFactory;
 import org.springframework.boot.web.embedded.jetty.JettyServletWebServerFactory;
@@ -16,9 +17,16 @@ public class JettyCustomizerWebflux implements WebServerFactoryCustomizer<JettyR
 		QueuedThreadPool threadPool = new QueuedThreadPool();
         threadPool.setMinThreads(1);
         threadPool.setMaxThreads(4);
-        //threadPool.setIdleTimeout(60000);
+        threadPool.setIdleTimeout(60000);
         threadPool.setName("jetty-generic");
         factory.setThreadPool(threadPool);
+        factory.addServerCustomizers((server) -> {
+     		for (org.eclipse.jetty.server.Connector connector : server.getConnectors()) { 
+     			if (connector instanceof AbstractConnector abstractConnector) { 
+     				abstractConnector.setIdleTimeout(40000L); 
+     			}
+     		}
+        });
 	}
 
 }
